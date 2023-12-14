@@ -4,13 +4,44 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/tailwind.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game</title>
+    <title>Game {{ state.progress }}</title>
   </head>
   <body>
     <div class="mx-auto max-w-xl">
       <div>progress: {{ state.progress }}</div>
-      <div>score: {{ state.score }}</div>
-      <div>{{ question }}</div>
+      <div>
+        score: {{ state.score }} <a href="/incorrect">Check mistakes</a>
+      </div>
+      <div>{{ question.question }}</div>
+      <form action="" method="post">
+        <ul>
+          {% for answer in question.answers %}
+            <li>
+              <input
+                type="checkbox"
+                id="answer{{ loop.index0 }}"
+                name="answer{{ loop.index0 }}"
+              /><label for="answer{{ loop.index0 }}">{{ answer }}</label>
+            </li>
+          {% endfor %}
+        </ul>
+        <button type="submit">Submit</button>
+      </form>
     </div>
+    {% if incorrectQuestion %}
+      <dialog open>
+        <div>{{ incorrectQuestion.question }}</div>
+        <ul>
+          {% for answer in incorrectQuestion.answers %}
+            {% if incorrectQuestion.corrects[loop.index0] %}
+              <li>{{ answer }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <form method="dialog">
+          <button>OK</button>
+        </form>
+      </dialog>
+    {% endif %}
   </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/tailwind.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game {{ state.progress }}</title>
+  </head>
+  <body>
+    <div class="mx-auto max-w-xl">
+      {% for index in incorrect %}
+        <div>{{ questions[index].question }}</div>
+        <ul>
+          {% for answer in questions[index].answers %}
+            {% if questions[index].corrects[loop.index0] %}
+              <li>{{ answer }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endfor %}
+      <a href="/">Back to game</a>
+    </div>
+  </body>
+</html>
