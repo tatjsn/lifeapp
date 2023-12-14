@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/api/home" },
+    { "source": "/lookup", "destination": "/api/home" },
+    { "source": "/search", "destination": "/api/search" },
+    { "source": "/stop/:id", "destination": "/api/stop" }
+  ]
+}
