@@ -6,7 +6,7 @@ let instance;
 export default function () {
   if (!instance) {
     instance = new Environment(
-      new FileSystemLoader(path.join(process.cwd(), 'views')),
+      new FileSystemLoader(path.join(process.cwd(), 'views'))
     );
     instance.addFilter('date', (num) => new Date(num).toISOString());
   }

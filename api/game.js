@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const defaultState = {
     progress: 0,
     score: 0,
-  }
+  };
   let state;
   if (!req.headers.cookie) {
     state = defaultState;
@@ -30,12 +30,16 @@ export default async function handler(req, res) {
     }
   }
 
-  res.setHeader(
-    'Set-Cookie',
-    [cookie.serialize('progress', state.progress, COOKIE_OPTIONS),
-    cookie.serialize('score', state.score, COOKIE_OPTIONS)],
-  );
+  res.setHeader('Set-Cookie', [
+    cookie.serialize('progress', state.progress, COOKIE_OPTIONS),
+    cookie.serialize('score', state.score, COOKIE_OPTIONS),
+  ]);
 
   res.setHeader('Content-Type', 'text/html');
-  res.send(view().render('game.njk', { state, question: JSON.stringify(questions[state.progress]) }));
+  res.send(
+    view().render('game.njk', {
+      state,
+      question: JSON.stringify(questions[state.progress]),
+    })
+  );
 }
