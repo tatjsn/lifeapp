@@ -7,25 +7,37 @@
     <title>Game {{ state.progress }}</title>
   </head>
   <body>
-    <div class="mx-auto max-w-xl">
-      <div>progress: {{ state.progress }}</div>
-      <div>
-        score: {{ state.score }} <a href="/incorrect">Check mistakes</a>
+    <div class="mx-auto max-w-xl text-xl">
+      <div class="flex gap-2 px-6">
+        <div>Progress: {{ state.progress }}</div>
+        <div>Score: {{ state.score }}</div>
+        <div><a href="/incorrect" class="text-blue-500">Check mistakes</a></div>
       </div>
-      <div>{{ question.question }}</div>
+      <div class="p-6">{{ question.question }}</div>
       <form action="" method="post">
         <ul>
+          {% set color = cycler("bg-blue-100", "bg-blue-50") %}
           {% for answer in question.answers %}
             <li>
-              <input
-                type="checkbox"
-                id="answer{{ loop.index0 }}"
-                name="answer{{ loop.index0 }}"
-              /><label for="answer{{ loop.index0 }}">{{ answer }}</label>
+              <label
+                for="answer{{ loop.index0 }}"
+                class="block p-6 {{ color.next() }}"
+                ><input
+                  type="checkbox"
+                  id="answer{{ loop.index0 }}"
+                  name="answer{{ loop.index0 }}"
+                  class="mr-6 scale-150"
+                />{{ answer }}</label
+              >
             </li>
           {% endfor %}
         </ul>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 active:hover:bg-blue-800 w-full p-6 text-white"
+        >
+          Submit
+        </button>
       </form>
     </div>
     {% if incorrectQuestion %}
