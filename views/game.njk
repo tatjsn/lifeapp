@@ -29,7 +29,7 @@
         <div>
           Score: {{ state.score }}
           {% if state.progress > 0 %}
-            ({{ 100 * state.score / state.progress | round(2) }}%)
+            ({{ (100 * state.score / state.progress) | round(2) }}%)
           {% endif %}
         </div>
         <div><a href="/incorrect" class="text-blue-500">Check mistakes</a></div>
