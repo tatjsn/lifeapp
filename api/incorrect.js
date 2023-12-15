@@ -4,7 +4,7 @@ import questions from './questions.json';
 
 export default async function handler(req, res) {
   const { incorrect: incorrectRaw } = cookie.parse(req.headers.cookie);
-  const incorrect = incorrectRaw.split(',').map((x) => +x);
+  const incorrect = incorrectRaw ? incorrectRaw.split(',').map((x) => +x) : [];
 
   res.setHeader('Content-Type', 'text/html');
   res.send(

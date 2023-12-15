@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       state = {
         progress: +progress,
         score: +score,
-        incorrect: incorrect.split(',').map((x) => +x),
+        incorrect: incorrect ? incorrect.split(',').map((x) => +x) : [],
       };
     }
   }
