@@ -9,8 +9,8 @@
   <body>
     <div class="mx-auto max-w-xl">
       {% for index in incorrect %}
-        <div>{{ questions[index].question }}</div>
-        <ul>
+        <div class="bg-blue-50 p-4">{{ questions[index].question }}</div>
+        <ul class="p-4">
           {% for answer in questions[index].answers %}
             {% if questions[index].corrects[loop.index0] %}
               <li>{{ answer }}</li>
@@ -18,7 +18,19 @@
           {% endfor %}
         </ul>
       {% endfor %}
-      <a href="/">Back to game</a>
+      <div class="p-4">
+        <a href="/" class="text-blue-500">Back to game</a>
+      </div>
+      <form action="/reset" method="post" class="p-4">
+        <input type="hidden" name="progress" value="0" />
+        <input type="hidden" name="score" value="0" />
+        <input type="hidden" name="incorrect" value="" />
+        <button type="submit" class="text-blue-500">Reset</button>
+        <input type="checkbox" id="sure" name="sure" required /><label
+          for="sure"
+          >Yes, I'm sure.</label
+        >
+      </form>
     </div>
   </body>
 </html>
