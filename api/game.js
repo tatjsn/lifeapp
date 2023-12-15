@@ -14,17 +14,22 @@ export default async function handler(req, res) {
   const defaultState = {
     progress: 0,
     score: 0,
-    incorrect: '',
+    incorrect: [],
   };
 
-  let state;
+  let state = defaultState;
   let incorrectQuestion;
 
-  if (!req.headers.cookie) {
-    state = defaultState;
-  } else {
-    const { progress, score } = cookie.parse(req.headers.cookie);
-    state = { progress: +progress, score: +score };
+  if (req.headers.cookie) {
+    // existence of cookie doesn't meant the app is initialised
+    const { progress, score, incorrect } = cookie.parse(req.headers.cookie);
+    if (progress !== undefined) {
+      state = {
+        progress: +progress,
+        score: +score,
+        incorrect: incorrect.split(',').map((x) => +x),
+      };
+    }
   }
 
   if (req.method == 'POST') {
@@ -37,7 +42,7 @@ export default async function handler(req, res) {
       state.score += 1;
     } else {
       incorrectQuestion = questions[state.progress];
-      state.incorrect += `,${state.progress}`;
+      state.incorrect.push(state.progress);
     }
     state.progress += 1;
   }
