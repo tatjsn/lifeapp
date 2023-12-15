@@ -1,6 +1,6 @@
 .node-version
 node_modules
-_site
+public
 .vercel
 postcss
 api/questions.json
