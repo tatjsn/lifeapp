@@ -8,6 +8,22 @@
   </head>
   <body>
     <div class="mx-auto max-w-xl text-xl">
+    {% if incorrectQuestion %}
+      <dialog open class="bg-red-500">
+        <div>{{ incorrectQuestion.question }}</div>
+        <ul>
+          {% for answer in incorrectQuestion.answers %}
+            {% if incorrectQuestion.corrects[loop.index0] %}
+              <li>{{ answer }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <form method="dialog">
+          <button class="w-full p-2 bg-black text-white">OK</button>
+        </form>
+      </dialog>
+    {% endif %}
+
       <div class="flex gap-2 px-6 text-base bg-blue-50">
         <div>Progress: {{ state.progress }}</div>
         <div>Score: {{ state.score }}</div>
@@ -40,20 +56,5 @@
         </button>
       </form>
     </div>
-    {% if incorrectQuestion %}
-      <dialog open>
-        <div>{{ incorrectQuestion.question }}</div>
-        <ul>
-          {% for answer in incorrectQuestion.answers %}
-            {% if incorrectQuestion.corrects[loop.index0] %}
-              <li>{{ answer }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-        <form method="dialog">
-          <button>OK</button>
-        </form>
-      </dialog>
-    {% endif %}
   </body>
 </html>
