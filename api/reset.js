@@ -18,5 +18,5 @@ export default async function handler(req, res) {
   ]);
 
   // change method to get
-  res.redirect(302, '/');
+  res.redirect(303, '/');
 }
