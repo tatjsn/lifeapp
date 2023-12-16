@@ -59,6 +59,6 @@ export default async function handler(req, res) {
       state,
       question: questions[state.progress],
       incorrectQuestion,
-    })
+    }),
   );
 }

@@ -11,6 +11,6 @@ export default async function handler(req, res) {
     view().render('incorrect.njk', {
       questions,
       incorrect,
-    })
+    }),
   );
 }
