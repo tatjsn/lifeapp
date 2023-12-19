@@ -21,9 +21,8 @@ export default async function handler(req, res) {
   let incorrectQuestion;
 
   if (req.method == 'POST' && !req.headers.cookie) {
-    // unexpected flow
-    // reload immediately
-    // do not touch cookie
+    // unexpected flow, probably due to tab restoration and samesite=strict
+    // reload immediately and do not touch cookie
     res.redirect(303, '/');
     return;
   }
