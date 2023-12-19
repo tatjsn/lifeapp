@@ -20,6 +20,14 @@ export default async function handler(req, res) {
   let state = defaultState;
   let incorrectQuestion;
 
+  if (req.method == 'POST' && !!req.headers.cookie) {
+    // unexpected flow
+    // reload immediately
+    // do not touch cookie
+    res.redirect(303, '/');
+    return;
+  }
+
   if (req.headers.cookie) {
     // existence of cookie doesn't meant the app is initialised
     const { progress, score, incorrect } = cookie.parse(req.headers.cookie);
