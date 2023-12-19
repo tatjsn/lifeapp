@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   let state = defaultState;
   let incorrectQuestion;
 
-  if (req.method == 'POST' && !!req.headers.cookie) {
+  if (req.method == 'POST' && !req.headers.cookie) {
     // unexpected flow
     // reload immediately
     // do not touch cookie
