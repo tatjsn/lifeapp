@@ -8,6 +8,18 @@
   </head>
   <body>
     <div class="mx-auto max-w-xl text-xl">
+      {% if examSummary %}
+        <dialog open class="bg-purple-500">
+          <div>Result: Exam {{ examSummary.exam }}</div>
+          <div>
+            Score: {{ examSummary.score }}
+            ({{ (100 * examSummary.score / 24) | round(2) }}%)
+          </div>
+          <form method="dialog">
+            <button class="w-full p-2 bg-black text-white">OK</button>
+          </form>
+        </dialog>
+      {% endif %}
       {% if incorrectQuestion %}
         <dialog open class="bg-red-500">
           <div>{{ incorrectQuestion.question }}</div>
@@ -25,11 +37,14 @@
       {% endif %}
 
       <div class="flex gap-2 px-6 text-base bg-blue-50">
-        <div>Progress: {{ state.progress }}</div>
+        <div>
+          Exam:
+          {{ (state.progress / 24 + 1) | round(0, "floor") }}/{{ state.progress % 24 + 1 }}
+        </div>
         <div>
           Score: {{ state.score }}
-          {% if state.progress > 0 %}
-            ({{ (100 * state.score / state.progress) | round(2) }}%)
+          {% if state.progress % 24 > 0 %}
+            ({{ (100 * state.score / (state.progress % 24)) | round(2) }}%)
           {% endif %}
         </div>
         <div><a href="/incorrect" class="text-blue-500">Check mistakes</a></div>

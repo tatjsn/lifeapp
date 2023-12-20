@@ -19,6 +19,7 @@ export default async function handler(req, res) {
 
   let state = defaultState;
   let incorrectQuestion;
+  let examSummary;
 
   if (req.method == 'POST' && !req.headers.cookie) {
     // unexpected flow, probably due to tab restoration and samesite=strict
@@ -52,6 +53,13 @@ export default async function handler(req, res) {
       state.incorrect.push(state.progress);
     }
     state.progress += 1;
+    if (state.progress > 0 && state.progress % 24 === 0) {
+      examSummary = {
+        exam: Math.floor(state.progress / 24),
+        score: state.score,
+      };
+      state.score = 0;
+    }
   }
 
   res.setHeader('Set-Cookie', [
@@ -66,6 +74,7 @@ export default async function handler(req, res) {
       state,
       question: questions[state.progress],
       incorrectQuestion,
+      examSummary,
     }),
   );
 }

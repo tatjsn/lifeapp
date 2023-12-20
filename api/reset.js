@@ -9,10 +9,14 @@ const COOKIE_OPTIONS = {
 };
 
 export default async function handler(req, res) {
-  const { progress, score, incorrect } = req.body;
+  const { progress, score, incorrect, exam } = req.body;
 
   res.setHeader('Set-Cookie', [
-    cookie.serialize('progress', progress, COOKIE_OPTIONS),
+    cookie.serialize(
+      'progress',
+      progress === undefined ? (exam - 1) * 24 : progress,
+      COOKIE_OPTIONS,
+    ),
     cookie.serialize('score', score, COOKIE_OPTIONS),
     cookie.serialize('incorrect', incorrect, COOKIE_OPTIONS),
   ]);
