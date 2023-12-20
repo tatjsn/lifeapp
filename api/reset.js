@@ -4,7 +4,7 @@ const COOKIE_OPTIONS = {
   httpOnly: true,
   maxAge: 100 * 24 * 60 * 60,
   path: '/',
-  sameSite: 'strict',
+  sameSite: 'none',
   secure: true,
 };
 
